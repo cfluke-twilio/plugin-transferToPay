@@ -27,7 +27,7 @@ exports.handler = async function (context, event, callback) {
     .update({ endConferenceOnExit: false })
 
   console.log('customer end conference set', updatedCustomerParticipant)
-  const actionUrl = `https://${context.DOMAIN_NAME}/finish-pay?conferenceUniqueName=${conferenceUniqueName}`
+  const actionUrl = `https://${context.DOMAIN_NAME}/finish-pay?conferenceUniqueName=${conferenceUniqueName}&amp;policyNumber=12345678`
   console.log('action url', actionUrl)
   const twiml = `<Response><Say>Your amount due is ${amount}. Payment processing will begin now.</Say><Pay chargeAmount="${amount}" paymentConnector="Stripe_Connector" action="${actionUrl}" /></Response>`
   console.log('new twiml', twiml)
