@@ -26,19 +26,19 @@ export class PayButton extends React.Component {
     if (this.props.task === undefined) {
       return <div />
     }
-    let attributes = this.props.task.attributes
-    console.log('current task attributes', attributes)
     if (this.props.task.channelType === 'voice') {
+      let conference = this.props.task.conference
+      console.log('current task conference', conference)
       return (
         <PaymentIcon
           {...this.props}
           className={paybutton}
           onClick={(e) => {
+            let conferenceUniqueName = conference.sid
+            let conferenceSid = conference.conferenceSid
+            let participantCallSid = conference.participants[1].callSid
             fetch(
-              `https://${functionBase}/start-pay?conferenceSid=${attributes.conference.sid}&participantCallSid=${attributes.conference.participants.customer}&conferenceUniqueName=${this.props.task.conference.sid}&amount=10.99`,
-              {
-                mode: 'no-cors',
-              },
+              `https://functions-4041-dev.twil.io/start-pay?conferenceSid=${conferenceSid}&participantCallSid=${participantCallSid}&conferenceUniqueName=${conferenceUniqueName}&amount=10.99`,
             ).then((data) => {
               console.log('sent start pay', data)
             })
